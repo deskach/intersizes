@@ -14,36 +14,68 @@ sum_of_squares(16) = 1
  */
 
 function sumOfSquares(n) {
-  let res = n; // Maximum squares required is n (1*1 + 1*1 + ..)
+  let res = n // Maximum squares required is n (1*1 + 1*1 + ..)
   
   // Go through all smaller numbers to recursively find minimum
   if (n > 3) {
     for (let x = 1; x <= n; x++) {
-      let temp = x*x;
-    
+      let temp = x * x
+      
       if (temp > n)
-        break;
+        break
       else
-        res =  Math.min(res, 1 + sumOfSquares(n - temp));
+        res = Math.min(res, 1 + sumOfSquares(n - temp))
     }
   }
   
-  return res;
+  return res
 }
 
+function sumOfSquaresDP(n) {
+  if (sumOfSquaresDP.dp === undefined) {
+    sumOfSquaresDP.dp = {
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3
+    }
+  }
+  
+  // Go through all smaller numbers to recursively find minimum
+  if (n > 3 && sumOfSquaresDP.dp[n] === undefined) {
+    sumOfSquaresDP.dp[n] = n // Maximum squares required is n (1*1 + 1*1 + ...)
+    
+    for (let x = 1; x <= n; x++) {
+      let temp = x * x
+      
+      if (temp > n)
+        break
+      else {
+        const subSum = sumOfSquaresDP.dp.hasOwnProperty(n - temp) ? sumOfSquaresDP.dp[n - temp] : sumOfSquaresDP(n - temp)
+        
+        sumOfSquaresDP.dp[n] = Math.min(sumOfSquaresDP.dp[n], 1 + subSum)
+      }
+    }
+  }
+  
+  return sumOfSquaresDP.dp[n]
+}
+
+// console.log(sumOfSquaresDP(8))
+
 function sumOfSquares2(n) {
-  let res = n; // Maximum squares required is n (1*1 + 1*1 + ..)
+  let res = n // Maximum squares required is n (1*1 + 1*1 + ..)
   
   // Go through all smaller numbers to recursively find minimum
   if (n > 3) {
     for (let x = Math.floor(Math.sqrt(n)); x > 1; x--) {
-      let temp = x*x;
+      let temp = x * x
       
-      res =  Math.min(res, 1 + sumOfSquares2(n - temp));
+      res = Math.min(res, 1 + sumOfSquares2(n - temp))
     }
   }
   
-  return res;
+  return res
 }
 
 function sumOfSquares3(n, res = n) {
@@ -53,7 +85,7 @@ function sumOfSquares3(n, res = n) {
   }
   
   for (let x = Math.floor(Math.sqrt(n)); x > 1; x--) {
-    let newRes =  1 + sumOfSquares3(n - x*x, res);
+    let newRes = 1 + sumOfSquares3(n - x * x, res)
     
     if (newRes > res + 1) {
       break
@@ -62,10 +94,10 @@ function sumOfSquares3(n, res = n) {
     }
   }
   
-  return res;
+  return res
 }
 
-module.exports = {sumOfSquares: sumOfSquares3}
+module.exports = {sumOfSquares: sumOfSquaresDP}
 
 // describe("Solution", () => {
 //   it("Base tests", () => {
