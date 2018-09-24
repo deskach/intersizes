@@ -13,7 +13,7 @@ sum_of_squares(16) = 1
 
  */
 
-function sumOfSquares(n) {
+function sumOfSquares0(n) {
   let res = n // Maximum squares required is n (1*1 + 1*1 + ..)
   
   // Go through all smaller numbers to recursively find minimum
@@ -31,9 +31,9 @@ function sumOfSquares(n) {
   return res
 }
 
-function sumOfSquaresDP(n) {
-  if (sumOfSquaresDP.dp === undefined) {
-    sumOfSquaresDP.dp = {
+function sumOfSquares(n) {
+  if (sumOfSquares.dp === undefined) {
+    sumOfSquares.dp = {
       0: 0,
       1: 1,
       2: 2,
@@ -42,26 +42,26 @@ function sumOfSquaresDP(n) {
   }
   
   // Go through all smaller numbers to recursively find minimum
-  if (n > 3 && sumOfSquaresDP.dp[n] === undefined) {
-    sumOfSquaresDP.dp[n] = n // Maximum squares required is n (1*1 + 1*1 + ...)
+  for (let i = 4; i <= n; i++) {
+    if (sumOfSquares.dp[i] === undefined) {
+      sumOfSquares.dp[i] = n // Maximum squares required is n (1*1 + 1*1 + ...)
+  
+      for (let x = 1; x <= i; x++) {
+        let temp = x * x
     
-    for (let x = 1; x <= n; x++) {
-      let temp = x * x
-      
-      if (temp > n)
-        break
-      else {
-        const subSum = sumOfSquaresDP.dp.hasOwnProperty(n - temp) ? sumOfSquaresDP.dp[n - temp] : sumOfSquaresDP(n - temp)
-        
-        sumOfSquaresDP.dp[n] = Math.min(sumOfSquaresDP.dp[n], 1 + subSum)
+        if (temp > i)
+          break
+        else {
+          sumOfSquares.dp[i] = Math.min(sumOfSquares.dp[i], 1 + sumOfSquares.dp[i - temp])
+        }
       }
     }
   }
   
-  return sumOfSquaresDP.dp[n]
+  return sumOfSquares.dp[n]
 }
 
-// console.log(sumOfSquaresDP(8))
+// console.log(sumOfSquares(8))
 
 function sumOfSquares2(n) {
   let res = n // Maximum squares required is n (1*1 + 1*1 + ..)
@@ -97,7 +97,7 @@ function sumOfSquares3(n, res = n) {
   return res
 }
 
-module.exports = {sumOfSquares: sumOfSquaresDP}
+module.exports = {sumOfSquares}
 
 // describe("Solution", () => {
 //   it("Base tests", () => {
