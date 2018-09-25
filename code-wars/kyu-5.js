@@ -1,51 +1,3 @@
-function dirReduc(arr) {
-  let initial = [...arr];
-  let reduced = [];
-  
-  if(initial.length > 0) {
-    const N = 'NORTH';
-    const S = 'SOUTH';
-    const E = 'EAST';
-    const W = 'WEST';
-    
-    const isOrtogonal = (a1, a2) => {
-      const opposites = {
-        [N]: S,
-        [S]: N,
-        [E]: W,
-        [W]: E,
-      }
-      
-      return opposites[a1] === a2
-    }
-  
-    while (reduced.length !== initial.length) {
-      reduced = [];
-      
-      for(let i = 0; i < initial.length; i++) {
-        const prev = reduced.length > 0 ? reduced[reduced.length - 1] : undefined;
-        const curr = initial[i];
-    
-        if (prev !== undefined && isOrtogonal(prev, curr)) {
-          reduced.pop();
-        } else {
-          reduced.push(curr);
-        }
-      }
-      
-      let tmp = [...initial];
-      initial = [...reduced];
-      reduced = [...tmp];
-    }
-  }
-  
-  return reduced
-}
-
-// dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH"])
-
-module.exports = {dirReduc}
-
 /*
 # Once upon a time, on a way through the old wild west,…
 
@@ -107,3 +59,66 @@ Not all paths can be made simpler. The path ["NORTH", "WEST", "SOUTH", "EAST"] i
   become such. Hence the result path is itself : ["NORTH", "WEST", "SOUTH", "EAST"].
  */
 
+function dirReduc(arr) {
+  let initial = [...arr]
+  let reduced = []
+  
+  if (initial.length > 0) {
+    const N = 'NORTH'
+    const S = 'SOUTH'
+    const E = 'EAST'
+    const W = 'WEST'
+    
+    const isOrtogonal = (a1, a2) => {
+      const opposites = {
+        [N]: S,
+        [S]: N,
+        [E]: W,
+        [W]: E,
+      }
+      
+      return opposites[a1] === a2
+    }
+    
+    while (reduced.length !== initial.length) {
+      reduced = []
+      
+      for (let i = 0; i < initial.length; i++) {
+        const prev = reduced.length > 0 ? reduced[reduced.length - 1] : undefined
+        const curr = initial[i]
+        
+        if (prev !== undefined && isOrtogonal(prev, curr)) {
+          reduced.pop()
+        } else {
+          reduced.push(curr)
+        }
+      }
+      
+      let tmp = [...initial]
+      initial = [...reduced]
+      reduced = [...tmp]
+    }
+  }
+  
+  return reduced
+}
+
+function sqInRect(lng, wdth) {
+  if (lng !== wdth) {
+    const results = []
+    
+    while (lng > 0) {
+      const side = Math.min(lng, wdth)
+      
+      results.push(side)
+      lng = Math.max(lng, wdth) - side
+      wdth = side
+    }
+    
+    return results
+  }
+  
+  return null
+}
+
+module.exports = {sqInRect, dirReduc}
