@@ -1,4 +1,4 @@
-const {sqInRect, dirReduc} = require('./kyu-5')
+const {sqInRect, dirReduc, productFib} = require('./kyu-5')
 
 describe('dirReduc', () => {
   it('Base tests', () => {
@@ -27,3 +27,20 @@ describe('sqInRect', () => {
     expect(sqInRect(5, 5)).toEqual(null)
   })
 })
+
+describe('productFib', () => {
+  it('Base tests', () => {
+    expect(productFib(4895)).toEqual([55, 89, true])
+    expect(productFib(5895)).toEqual([89, 144, false])
+    expect(productFib(74049690)).toEqual([6765, 10946, true])
+    expect(productFib(84049690)).toEqual([10946, 17711, false])
+    expect(productFib(193864606)).toEqual([10946, 17711, true])
+    expect(productFib(447577)).toEqual([610, 987, false])
+    expect(productFib(602070)).toEqual([610, 987, true])
+  })
+  
+  it('single test', () => {
+    expect(productFib(4895)).toEqual([55, 89, true])
+  })
+})
+

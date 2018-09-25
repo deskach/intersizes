@@ -103,6 +103,17 @@ function dirReduc(arr) {
   return reduced
 }
 
+// Product of consecutive Fib numbers
+function productFib(prod) {
+  let fibs = [0, 1]
+  
+  while (fibs[0] * fibs[1] < prod) {
+    fibs = [fibs[1], fibs[0] + fibs[1]]
+  }
+
+  return [fibs[0], fibs[1], fibs[0] * fibs[1] === prod]
+}
+
 function sqInRect(lng, wdth) {
   if (lng !== wdth) {
     const results = []
@@ -121,4 +132,4 @@ function sqInRect(lng, wdth) {
   return null
 }
 
-module.exports = {sqInRect, dirReduc}
+module.exports = {sqInRect, dirReduc, productFib}
