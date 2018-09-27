@@ -1,4 +1,4 @@
-const {Funnel} = require('./kyu-4')
+const {Funnel, formatDuration} = require('./kyu-4')
 
 describe("Funnel Tests", () => {
   it("It should works for basic tests.", () => {
@@ -96,14 +96,22 @@ describe("Funnel Tests", () => {
   })
 })
 
-// describe('dirReduc', () => {
-//   it('Base tests', () => {
-//     expect(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"])).toEqual(["WEST"])
-//     expect(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH"])).toEqual([])
-//   })
-//
-//   it('single test', () => {
-//     expect(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH"])).toEqual([])
-//   })
-// })
+
+describe('formatDuration ', () => {
+  it('Base tests', () => {
+    expect(formatDuration(1)).toEqual("1 second")
+    expect(formatDuration(62)).toEqual("1 minute and 2 seconds")
+    expect(formatDuration(120)).toEqual("2 minutes")
+    expect(formatDuration(3600)).toEqual("1 hour")
+    expect(formatDuration(3662)).toEqual("1 hour, 1 minute and 2 seconds")
+  })
+
+  it('single test', () => {
+    expect(formatDuration(62)).toEqual("1 minute and 2 seconds")
+  })
+  
+  it('now', () => {
+    expect(formatDuration(0)).toEqual("now")
+  })
+})
 
