@@ -41,4 +41,23 @@ function array_diff(a, b) {
   return a.filter(item => !b.includes(item))
 }
 
-module.exports = {findMissing, reverseLetter, findShort, array_diff}
+function shortestArrang(n) {
+  // (x + x + m)*(m + 1)/2 = n => (2x+m)*(m+1)/2 = n => m^2 + 2xm + 2x + m = 2*n => x = (2*n - m - m^2)/(2m + 2)
+  const evalX = (m) => (2*n - m - m*m)/(2*m + 2)
+  
+  for(let m = 1, x = evalX(m); (x > 0) && (x < n); m++, x = evalX(m)) {
+    if (Math.floor(x) === Math.ceil(x)) {
+      const results = [];
+      
+      for (let i = x + m; i >= x; i--) {
+        results.push(i)
+      }
+      
+      return results
+    }
+  }
+  
+  return [-1];
+}
+
+module.exports = {findMissing, reverseLetter, findShort, array_diff, shortestArrang}
