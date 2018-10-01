@@ -1,4 +1,4 @@
-const {findMissing, reverseLetter, findShort} = require('./kyu-6');
+const {findMissing, reverseLetter, findShort, array_diff} = require('./kyu-6');
 
 
 describe('findMissing', () => {
@@ -33,5 +33,18 @@ describe('findShort', () => {
   
   it('single test', () => {
     expect(findShort("bitcoin take over the world maybe who knows perhaps")).toEqual(3);
+  })
+});
+
+
+describe("array_diff tests", function() {
+  it("Should pass Sample tests", function() {
+    expect(array_diff([], [4,5])).toEqual([]);
+    expect(array_diff([3,4], [3])).toEqual([4]);
+    expect(array_diff([1,8,2], [])).toEqual([1,8,2]);
+  });
+  
+  it('single test', () => {
+    expect(array_diff([3,4], [3])).toEqual([4]);
   })
 });

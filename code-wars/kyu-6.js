@@ -37,4 +37,8 @@ function reverseLetter(str) {
   return str.replace(/[\W\d_]/gi, '').split('').reverse().join('');
 }
 
-module.exports = {findMissing, reverseLetter, findShort}
+function array_diff(a, b) {
+  return a.filter(item => !b.includes(item))
+}
+
+module.exports = {findMissing, reverseLetter, findShort, array_diff}
