@@ -132,4 +132,40 @@ function sqInRect(lng, wdth) {
   return null
 }
 
-module.exports = {sqInRect, dirReduc, productFib}
+// Diophantine Equation x^2 - 4 * y^2 = n
+// solEquaStr(90005) --> "[[45003, 22501], [9003, 4499], [981, 467], [309, 37]]"
+// solEquaStr(90002) --> "[]"
+function solequa(n) {
+  // (x - 2y)*(x + 2y) = n
+  const findDividers = (n) => {
+    const results = [];
+    
+    for(let i = 1; i <= Math.sqrt(n); i++) {
+      if (Number.isInteger(n / i)) {
+        results.push([i, n / i]);
+      }
+    }
+    
+    return results
+  }
+  
+  const solve = (m1, m2) => {
+    // {x - 2y = m1; x + 2y = m2;} => {x = m1 + 2y; 4y = m2 - m1} => {x = (m1 + m2)/2; y = (m2 - m1)/4}
+    const y = (m1 + m2) / 2;
+    const x = (m2 - m1) / 4;
+    
+    if (Number.isInteger(x) && Number.isInteger(y)) {
+      return (x > y) ? [x, y] : [y, x]
+    }
+    
+    return null
+  }
+  
+  const dividers = findDividers(n);
+  const solutions = dividers.map(([d1, d2]) => solve(d1, d2)).filter(s => s !== null)
+  
+  return solutions
+}
+
+
+module.exports = {sqInRect, dirReduc, productFib, solequa}

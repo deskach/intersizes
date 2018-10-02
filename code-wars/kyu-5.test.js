@@ -1,4 +1,4 @@
-const {sqInRect, dirReduc, productFib} = require('./kyu-5')
+const {sqInRect, dirReduc, productFib, solequa} = require('./kyu-5')
 
 describe('dirReduc', () => {
   it('Base tests', () => {
@@ -44,3 +44,23 @@ describe('productFib', () => {
   })
 })
 
+describe('solequa', () => {
+  it('Base tests', () => {
+    expect(solequa(5)).toEqual([[3, 1]])
+    expect(solequa(12)).toEqual([[4, 1]])
+    expect(solequa(13)).toEqual([[7, 3]])
+    expect(solequa(16)).toEqual([[4, 0]])
+  })
+  
+  it('multiple roots', () => {
+    expect(solequa(90005)).toEqual([[45003, 22501], [9003, 4499], [981, 467], [309, 37]])
+  })
+  
+  it('edge cases', () => {
+    expect(solequa(90002)).toEqual([])
+  })
+  
+  it('single test', () => {
+    expect(solequa(16)).toEqual([[4, 0]])
+  })
+})
