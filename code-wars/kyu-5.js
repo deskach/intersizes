@@ -132,6 +132,33 @@ function sqInRect(lng, wdth) {
   return null
 }
 
+// Double cola
+function whoIsNext(names, r){
+  if (r < names.length) {
+    return names[r-1]
+  } else {
+    let i = 1
+    let prevSteps = 0
+    let steps = names.length
+  
+    while(steps  < r) {
+      prevSteps = steps
+      steps += names.length * Math.pow(2, i)
+      i++
+    }
+  
+    let rem = r - prevSteps
+    let k = rem % Math.pow(2, i - 1)
+    let idx = (rem - k) / Math.pow(2, i - 1)
+    
+    if (k > 0) {
+      idx += 1
+    }
+  
+    return names[idx - 1]
+  }
+}
+
 // Diophantine Equation x^2 - 4 * y^2 = n
 // solEquaStr(90005) --> "[[45003, 22501], [9003, 4499], [981, 467], [309, 37]]"
 // solEquaStr(90002) --> "[]"
@@ -168,4 +195,4 @@ function solequa(n) {
 }
 
 
-module.exports = {sqInRect, dirReduc, productFib, solequa}
+module.exports = {sqInRect, dirReduc, productFib, solequa, whoIsNext}

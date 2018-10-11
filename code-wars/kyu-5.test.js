@@ -1,4 +1,4 @@
-const {sqInRect, dirReduc, productFib, solequa} = require('./kyu-5')
+const {sqInRect, dirReduc, productFib, solequa, whoIsNext} = require('./kyu-5')
 
 describe('dirReduc', () => {
   it('Base tests', () => {
@@ -62,5 +62,28 @@ describe('solequa', () => {
   
   it('single test', () => {
     expect(solequa(16)).toEqual([[4, 0]])
+  })
+})
+
+describe('whoIsNext', () => {
+  it('Base tests', () => {
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 1)).toEqual("Sheldon")
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 52)).toEqual("Penny")
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 7230702951)).toEqual("Leonard")
+  })
+  
+  it('single test', () => {
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 8)).toEqual("Leonard")
+  })
+  
+  it('basic tests', () => {
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 2)).toEqual("Leonard")
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 6)).toEqual("Sheldon")
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 7)).toEqual("Sheldon")
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 8)).toEqual("Leonard")
+  })
+  
+  it('edge cases', () => {
+    expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 1)).toEqual("Sheldon")
   })
 })
