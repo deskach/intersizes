@@ -1,4 +1,4 @@
-const {Funnel, formatDuration} = require('./kyu-4')
+const {Funnel, formatDuration, newMission, isInteresting} = require('./kyu-4')
 
 describe("Funnel Tests", () => {
   it("It should works for basic tests.", () => {
@@ -96,6 +96,17 @@ describe("Funnel Tests", () => {
   })
 })
 
+describe('newMission', () => {
+  it('Base tests', () => {
+    const badPeople = ['Dwana Webre']
+    const goodPeople = ['Yelena Sather']
+    
+    expect(newMission('kill', 'Dwana Webre')).toEqual(false) // This is an immoral mission
+    expect(newMission('capture', 'Yelena Sather')).toEqual(false) // This is a mission targetting a good person
+    expect(newMission('capture', 'Dwana Webre')).toEqual(true) // This is a good mission
+  })
+})
+
 
 describe('formatDuration ', () => {
   it('Base tests', () => {
@@ -115,3 +126,17 @@ describe('formatDuration ', () => {
   })
 })
 
+describe('isInteresting', () => {
+  it('Base tests', () => {
+    expect(isInteresting(3, [1337, 256])).toEqual(0)
+    expect(isInteresting(1336, [1337, 256])).toEqual(1)
+    expect(isInteresting(1337, [1337, 256])).toEqual(2)
+    expect(isInteresting(11208, [1337, 256])).toEqual(0)
+    expect(isInteresting(11209, [1337, 256])).toEqual(1)
+    expect(isInteresting(11211, [1337, 256])).toEqual(2)
+  })
+  
+  it('single test', () => {
+    expect(isInteresting(1336, [1337, 256])).toEqual(1)
+  })
+})
