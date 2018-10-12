@@ -110,7 +110,7 @@ function productFib(prod) {
   while (fibs[0] * fibs[1] < prod) {
     fibs = [fibs[1], fibs[0] + fibs[1]]
   }
-
+  
   return [fibs[0], fibs[1], fibs[0] * fibs[1] === prod]
 }
 
@@ -133,20 +133,20 @@ function sqInRect(lng, wdth) {
 }
 
 // Double cola
-function whoIsNext(names, r){
+function whoIsNext(names, r) {
   if (r < names.length) {
-    return names[r-1]
+    return names[r - 1]
   } else {
     let i = 1
     let prevSteps = 0
     let steps = names.length
-  
-    while(steps  < r) {
+    
+    while (steps < r) {
       prevSteps = steps
       steps += names.length * Math.pow(2, i)
       i++
     }
-  
+    
     let rem = r - prevSteps
     let k = rem % Math.pow(2, i - 1)
     let idx = (rem - k) / Math.pow(2, i - 1)
@@ -154,7 +154,7 @@ function whoIsNext(names, r){
     if (k > 0) {
       idx += 1
     }
-  
+    
     return names[idx - 1]
   }
 }
@@ -165,11 +165,11 @@ function whoIsNext(names, r){
 function solequa(n) {
   // (x - 2y)*(x + 2y) = n
   const findDividers = (n) => {
-    const results = [];
+    const results = []
     
-    for(let i = 1; i <= Math.sqrt(n); i++) {
+    for (let i = 1; i <= Math.sqrt(n); i++) {
       if (Number.isInteger(n / i)) {
-        results.push([i, n / i]);
+        results.push([i, n / i])
       }
     }
     
@@ -178,8 +178,8 @@ function solequa(n) {
   
   const solve = (m1, m2) => {
     // {x - 2y = m1; x + 2y = m2;} => {x = m1 + 2y; 4y = m2 - m1} => {x = (m1 + m2)/2; y = (m2 - m1)/4}
-    const y = (m1 + m2) / 2;
-    const x = (m2 - m1) / 4;
+    const y = (m1 + m2) / 2
+    const x = (m2 - m1) / 4
     
     if (Number.isInteger(x) && Number.isInteger(y)) {
       return (x > y) ? [x, y] : [y, x]
@@ -188,11 +188,35 @@ function solequa(n) {
     return null
   }
   
-  const dividers = findDividers(n);
+  const dividers = findDividers(n)
   const solutions = dividers.map(([d1, d2]) => solve(d1, d2)).filter(s => s !== null)
   
   return solutions
 }
 
 
-module.exports = {sqInRect, dirReduc, productFib, solequa, whoIsNext}
+/* Shuffle It Up TODO: find a more efficient solution
+A special kind of permutation is the one that has all of its elements in a different position than the original.
+The task for this kata would be to create a code to count all these permutations for an array of certain length.
+[1 2 3]
+(2 3 1)
+(3 1 2)
+*/
+function all_permuted(array_length, solutions = {1: 0, 2: 1}) {
+  function od_permuted(od_array_length, od_solutions = {1: 1, 2: 1}) {
+    if (!od_solutions.hasOwnProperty(od_array_length)) {
+      od_solutions[od_array_length] = all_permuted(od_array_length - 1, solutions)
+        + (od_array_length - 1) * od_permuted(od_array_length - 1, od_solutions)
+    }
+
+    return od_solutions[od_array_length]
+  }
+
+  if (!solutions.hasOwnProperty(array_length)) {
+    solutions[array_length] = (array_length - 1) * od_permuted(array_length - 1)
+  }
+
+  return solutions[array_length]
+}
+
+module.exports = {sqInRect, dirReduc, productFib, solequa, whoIsNext, all_permuted}

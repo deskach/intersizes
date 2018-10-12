@@ -1,4 +1,4 @@
-const {sqInRect, dirReduc, productFib, solequa, whoIsNext} = require('./kyu-5')
+const {sqInRect, dirReduc, productFib, solequa, whoIsNext, all_permuted} = require('./kyu-5')
 
 describe('dirReduc', () => {
   it('Base tests', () => {
@@ -85,5 +85,22 @@ describe('whoIsNext', () => {
   
   it('edge cases', () => {
     expect(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 1)).toEqual("Sheldon")
+  })
+})
+
+describe('all_permuted', () => {
+  it('Base tests', () => {
+    expect(all_permuted(1)).toEqual(0)
+    expect(all_permuted(2)).toEqual(1)
+    expect(all_permuted(3)).toEqual(2)
+    expect(all_permuted(4)).toEqual(9)
+  })
+  
+  it('single test', () => {
+    expect(all_permuted(30)).toEqual(97581073836835777732377428235481)
+  })
+  
+  it('edge cases', () => {
+    expect(all_permuted(1)).toEqual(0)
   })
 })
